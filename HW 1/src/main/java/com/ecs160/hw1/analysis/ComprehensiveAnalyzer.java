@@ -13,7 +13,6 @@ public class ComprehensiveAnalyzer implements analyzer {
     @Override
     public void analyze(List<Post> posts) {
         int totalPosts = posts.size();
-        int totalPostsAndReplies = totalPosts; // Start with initial posts
         int totalReplies = 0;
         long totalIntervalSeconds = 0;
         int totalIntervalPairs = 0;
@@ -23,7 +22,6 @@ public class ComprehensiveAnalyzer implements analyzer {
             List<Post> replies = post.getReplies();
             if (replies != null && !replies.isEmpty()) {
                 totalReplies += replies.size();
-                totalPostsAndReplies += replies.size();
 
                 replies.sort(Comparator.comparing(p -> parseTimestamp(p.getRecord().getCreatedAt(), formatter)));
 
@@ -49,8 +47,6 @@ public class ComprehensiveAnalyzer implements analyzer {
         long avgIntervalSeconds = totalIntervalPairs > 0 ? totalIntervalSeconds / totalIntervalPairs : 0;
 
         System.out.println("Total posts: " + totalPosts);
-        System.out.println("Total replies: " + totalReplies);
-        System.out.println("Total posts and replies: " + totalPostsAndReplies);
         System.out.println("Average number of replies per post: " + String.format("%.2f", avgReplies));
         System.out.println("Average duration between replies: " + formatDuration(avgIntervalSeconds));
     }
@@ -59,6 +55,7 @@ public class ComprehensiveAnalyzer implements analyzer {
         return LocalDateTime.parse(timestamp, formatter);
     }
 
+    // Format the duration into HH:MM:SS for the output
     private String formatDuration(long seconds) {
         long hours = seconds / 3600;
         long minutes = (seconds % 3600) / 60;
