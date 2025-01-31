@@ -44,11 +44,7 @@ public class parser {
                         }
 
                         posts.add(post);
-                    } else {
-                        System.out.println("'post' is missing inside 'thread' in feed item " + i);
                     }
-                } else {
-                    System.out.println("'thread' is missing in feed item " + i);
                 }
             }
         } catch (IOException e) {

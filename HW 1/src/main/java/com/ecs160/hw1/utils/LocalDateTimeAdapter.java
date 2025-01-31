@@ -19,4 +19,3 @@ public class LocalDateTimeAdapter implements JsonSerializer<LocalDateTime>, Json
         return LocalDateTime.parse(json.getAsString(), formatter);
     }
 }
-// hi
