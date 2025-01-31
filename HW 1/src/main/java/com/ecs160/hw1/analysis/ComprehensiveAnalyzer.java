@@ -4,57 +4,59 @@ import com.ecs160.hw1.models.Post;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
 
 public class ComprehensiveAnalyzer implements analyzer {
+    private boolean weighted = false;
+
     @Override
     public void analyze(List<Post> posts) {
-
         int totalPosts = posts.size();
+        int totalPostsAndReplies = totalPosts; // Start with initial posts
         int totalReplies = 0;
         long totalIntervalSeconds = 0;
         int totalIntervalPairs = 0;
         DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
         for (Post post : posts) {
-            int replies = post.getReplyCount();
-            totalReplies += replies;
+            List<Post> replies = post.getReplies();
+            if (replies != null && !replies.isEmpty()) {
+                totalReplies += replies.size();
+                totalPostsAndReplies += replies.size();
 
-            List<Post> postReplies = post.getReplies();
-            if (postReplies != null && postReplies.size() > 1) {
-                for (int i = 0; i < postReplies.size() - 1; i++) {
-                    LocalDateTime time1 = parseTimestamp(postReplies.get(i).getRecord().getCreatedAt(), formatter);
-                    LocalDateTime time2 = parseTimestamp(postReplies.get(i + 1).getRecord().getCreatedAt(), formatter);
+                replies.sort(Comparator.comparing(p -> parseTimestamp(p.getRecord().getCreatedAt(), formatter)));
 
-                    if (time1 != null && time2 != null) {
-                        Duration duration = Duration.between(time1, time2);
-                        totalIntervalSeconds += duration.getSeconds();
-                        totalIntervalPairs++;
+                if (replies.size() > 1) {
+                    for (int i = 0; i < replies.size() - 1; i++) {
+                        LocalDateTime time1 = parseTimestamp(replies.get(i).getRecord().getCreatedAt(), formatter);
+                        LocalDateTime time2 = parseTimestamp(replies.get(i + 1).getRecord().getCreatedAt(), formatter);
+
+                        if (time1 != null && time2 != null) {
+                            Duration duration = Duration.between(time1, time2);
+                            // Only add positive durations to avoid negative intervals
+                            if (!duration.isNegative()) {
+                                totalIntervalSeconds += duration.getSeconds();
+                                totalIntervalPairs++;
+                            }
+                        }
                     }
                 }
             }
         }
 
-        // calc avgs
-        double avgReplies = totalReplies / (double) totalPosts;
+        double avgReplies = (double) totalReplies / totalPosts;
         long avgIntervalSeconds = totalIntervalPairs > 0 ? totalIntervalSeconds / totalIntervalPairs : 0;
 
-        long hours = avgIntervalSeconds / 3600;
-        long minutes = (avgIntervalSeconds % 3600) / 60;
-        long seconds = avgIntervalSeconds % 60;
-        String formattedDuration = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-
         System.out.println("Total posts: " + totalPosts);
-        System.out.println("Average number of replies: " + avgReplies);
-        System.out.println("Average duration between replies: " + formattedDuration);
+        System.out.println("Total replies: " + totalReplies);
+        System.out.println("Total posts and replies: " + totalPostsAndReplies);
+        System.out.println("Average number of replies per post: " + String.format("%.2f", avgReplies));
+        System.out.println("Average duration between replies: " + formatDuration(avgIntervalSeconds));
     }
 
     private LocalDateTime parseTimestamp(String timestamp, DateTimeFormatter formatter) {
-        try {
-            return LocalDateTime.parse(timestamp, formatter);
-        } catch (Exception e) {
-            return null;
-        }
+        return LocalDateTime.parse(timestamp, formatter);
     }
 
     private String formatDuration(long seconds) {
