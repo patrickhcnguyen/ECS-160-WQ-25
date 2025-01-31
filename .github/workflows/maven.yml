@@ -1,24 +1,43 @@
 name: Java CI with Maven
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+        options: --entrypoint redis-server
 
-    - name: Configure Redis memory overcommit
-      run: |
-        echo "vm.overcommit_memory=1" | sudo tee -a /etc/sysctl.conf
-        sudo sysctl -p
-    
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn clean package  # Assuming the pom.xml is in the root
+
+      - name: Run Tests
+        run: mvn test
+
+      - name: Create Sample Input JSON
+        run: |
+          echo '{"posts": [{"id": 1, "content": "Hello world!", "replies": []}]}' > sample_input.json
+
+      - name: Run the Application
+        run: java -jar target/HW1-solution-1.0-SNAPSHOT.jar --weighted false --file "./sample_input.json"
