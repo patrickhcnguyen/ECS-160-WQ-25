@@ -65,14 +65,30 @@ public class BasicAnalyzerTest {
         // First post with 2 replies
         Post post1 = new Post();
         List<Post> replies1 = new ArrayList<>();
-        replies1.add(new Post());
-        replies1.add(new Post());
+        
+        // Add timestamps to replies
+        Post reply1 = new Post();
+        Record record1 = new Record();
+        record1.setCreatedAt("2024-01-31T10:00:00Z");
+        reply1.setRecord(record1);
+        
+        Post reply2 = new Post();
+        Record record2 = new Record();
+        record2.setCreatedAt("2024-01-31T10:30:00Z");
+        reply2.setRecord(record2);
+        
+        replies1.add(reply1);
+        replies1.add(reply2);
         post1.setReplies(replies1);
         
         // Second post with 1 reply
         Post post2 = new Post();
         List<Post> replies2 = new ArrayList<>();
-        replies2.add(new Post());
+        Post reply3 = new Post();
+        Record record3 = new Record();
+        record3.setCreatedAt("2024-01-31T11:00:00Z");
+        reply3.setRecord(record3);
+        replies2.add(reply3);
         post2.setReplies(replies2);
         
         posts.add(post1);
