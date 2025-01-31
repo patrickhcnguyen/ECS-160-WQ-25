@@ -1,4 +1,9 @@
-package analysis;
+package com.ecs160.hw1.analysis;
 
-public class analyzer {
+import com.ecs160.hw1.models.Post;
+
+import java.util.List;
+
+public interface analyzer {
+    void analyze(List<Post> posts);
 }
