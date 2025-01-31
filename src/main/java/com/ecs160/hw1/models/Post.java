@@ -1,5 +1,6 @@
 package com.ecs160.hw1.models;
 import java.util.List;
+import java.time.LocalDateTime;
 
 public class Post {
     // values
@@ -13,6 +14,8 @@ public class Post {
     private int quoteCount;
     private String indexedAt;
     private List<Post> replies;
+    private String content;
+    private LocalDateTime timestamp;
 
     // getters and setters
     public String getUri() { return uri; }
@@ -44,4 +47,20 @@ public class Post {
 
     public List<Post> getReplies() { return replies; };
     public void setReplies(List<Post> replies) { this.replies = replies; }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getContent() { 
+        return content; 
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
 }

@@ -6,6 +6,7 @@ public class Author {
     private String did;
     private String handle;
     private String displayName;
+    private String name;
 
     // getters and setters
     public String getDid() { return did; }
@@ -16,5 +17,14 @@ public class Author {
 
     public String getDisplayName() { return displayName; }
     public void setDisplayName(String displayName) { this.displayName = displayName; }
+
+    public String getName() { 
+        return name; 
+    }
+
+    public Author(String name) {
+        this.name = name;
+    }
+
     //HIIII
 }
