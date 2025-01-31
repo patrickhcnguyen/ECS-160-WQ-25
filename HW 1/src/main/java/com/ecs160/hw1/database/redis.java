@@ -59,7 +59,6 @@ public class redis {
             }
             pipeline.sync();
 
-            // Verify persistence
             long dbSize = jedis.dbSize();
             if (dbSize != posts.size()) {
                 System.err.println("Warning: Expected " + posts.size() + " records but found " + dbSize);

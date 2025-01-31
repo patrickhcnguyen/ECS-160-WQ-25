@@ -32,7 +32,6 @@ public class ComprehensiveAnalyzer implements analyzer {
 
                         if (time1 != null && time2 != null) {
                             Duration duration = Duration.between(time1, time2);
-                            // Only add positive durations to avoid negative intervals
                             if (!duration.isNegative()) {
                                 totalIntervalSeconds += duration.getSeconds();
                                 totalIntervalPairs++;
@@ -55,7 +54,6 @@ public class ComprehensiveAnalyzer implements analyzer {
         return LocalDateTime.parse(timestamp, formatter);
     }
 
-    // Format the duration into HH:MM:SS for the output
     private String formatDuration(long seconds) {
         long hours = seconds / 3600;
         long minutes = (seconds % 3600) / 60;

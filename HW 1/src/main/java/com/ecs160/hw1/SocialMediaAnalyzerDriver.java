@@ -12,8 +12,6 @@ public class SocialMediaAnalyzerDriver {
     public static void main(String[] args) {
         String filePath = "/Users/patricknguyen/Desktop/ECS-160-WQ-25/HW 1/src/main/resources/input.json";
         redis redisSession = null;
-
-        try {
             List<Post> posts = parser.parse(filePath);
 
             redisSession = new redis();
@@ -23,19 +21,5 @@ public class SocialMediaAnalyzerDriver {
 
             analyzer comprehensiveAnalyzer = new ComprehensiveAnalyzer();
             comprehensiveAnalyzer.analyze(postsReloaded);
-
-        } catch (Exception e) {
-            System.err.println("Fatal error in main: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(1);
-        } finally {
-            if (redisSession != null) {
-                try {
-                    redisSession.close();
-                } catch (Exception e) {
-                    System.err.println("Error closing Redis: " + e.getMessage());
-                }
-            }
-        }
     }
 }
