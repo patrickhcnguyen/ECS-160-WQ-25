@@ -10,7 +10,7 @@ import com.ecs160.hw1.analysis.ComprehensiveAnalyzer;
 
 public class SocialMediaAnalyzerDriver {
     public static void main(String[] args) {
-        String filePath = "HW 1/src/main/resources/input.json";
+        String filePath = "/Users/patricknguyen/Desktop/ECS-160-WQ-25/HW 1/src/main/resources/input.json";
         redis redisSession = null;
 
         try {
