@@ -30,18 +30,18 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        working-directory: ./ECS-160-WQ-25/HW 1
-        run: mvn clean package  # Assuming the pom.xml is in the root
+        working-directory: ECS-160-WQ-25/HW 1
+        run: mvn clean package
 
       - name: Run Tests
-        working-directory: ./ECS-160-WQ-25/HW 1
+        working-directory: ECS-160-WQ-25/HW 1
         run: mvn test
 
       - name: Create Sample Input JSON
-        working-directory: ./ECS-160-WQ-25/HW 1
+        working-directory: ECS-160-WQ-25/HW 1
         run: |
           echo '{"posts": [{"id": 1, "content": "Hello world!", "replies": []}]}' > sample_input.json
 
       - name: Run the Application
-        working-directory: ./ECS-160-WQ-25/HW 1
+        working-directory: ECS-160-WQ-25/HW 1
         run: java -jar target/HW1-solution-1.0-SNAPSHOT.jar --weighted false --file "./sample_input.json"
