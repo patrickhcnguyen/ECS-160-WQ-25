@@ -1,4 +1,4 @@
-#!/bin/bash
+$#!/bin/bash
 
 # studentZip=$1
 # unzip $studentZip

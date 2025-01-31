@@ -1,11 +1,14 @@
 package com.ecs160.hw1.database;
 
 import com.ecs160.hw1.models.Post;
+import com.ecs160.hw1.utils.LocalDateTimeAdapter;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +21,9 @@ public class redis {
     private static final int RETRY_DELAY_MS = 1000;
 
     public redis() {
-        this.gson = new Gson();
+        this.gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
         connectWithRetry();
     }
 
