@@ -30,7 +30,10 @@ jobs:
           cache: maven
 
       - name: Build with Maven
+<<<<<<< Updated upstream
         working-directory: "HW 1"  # Path relative to the root of the repository
+=======
+>>>>>>> Stashed changes
         run: mvn clean package
 
       - name: Run Tests
