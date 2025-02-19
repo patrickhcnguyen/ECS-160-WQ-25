@@ -30,14 +30,18 @@ jobs:
           cache: maven
 
       - name: Build with Maven
-        run: mvn clean package --file pom.xml
+        working-directory: "HW 1"  # Path relative to the root of the repository
+        run: mvn clean package
 
       - name: Run Tests
+        working-directory: "HW 1"  # Path relative to the root of the repository
         run: mvn test
 
       - name: Create Sample Input JSON
+        working-directory: "HW 1"  # Path relative to the root of the repository
         run: |
           echo '{"posts": [{"id": 1, "content": "Hello world!", "replies": []}]}' > sample_input.json
 
       - name: Run the Application
+        working-directory: "HW 1"  # Path relative to the root of the repository
         run: java -jar target/HW1-solution-1.0-SNAPSHOT.jar --weighted false --file "./sample_input.json"
