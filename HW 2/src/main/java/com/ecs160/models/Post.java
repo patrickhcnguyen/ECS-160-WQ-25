@@ -1,12 +1,26 @@
 package com.ecs160.models;
+
+import com.ecs160.persistence.Persistable;
+import com.ecs160.persistence.PersistableField;
+import com.ecs160.persistence.PersistableId;
+import com.ecs160.persistence.PersistableListField;
+
 import java.util.List;
 import java.time.LocalDateTime;
 
+@Persistable
 public class Post {
+    // Required fields for assignment
+    @PersistableId
     private Integer postId;
+
+    @PersistableField
     private String postContent;
+
+    @PersistableListField(className = "com.ecs160.models.Post")
     private List<Post> replies;
 
+    // Additional fields from previous implementation
     private String uri;
     private String cid;
     private Author author;
@@ -17,6 +31,9 @@ public class Post {
     private int quoteCount;
     private String indexedAt;
     private LocalDateTime timestamp;
+
+    // Constructors
+    public Post() {}
 
     // getters and setters
     public Integer getPostId() { return postId; }
