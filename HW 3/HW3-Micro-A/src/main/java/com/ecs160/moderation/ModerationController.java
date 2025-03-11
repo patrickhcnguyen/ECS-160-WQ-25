@@ -1,6 +1,5 @@
 package com.ecs160.moderation;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,7 +7,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 public class ModerationController {
@@ -17,31 +15,28 @@ public class ModerationController {
             "swatting", "hack", "crypto", "bots"
     );
 
-    @Autowired
-    private RestTemplate restTemplate;
-
     @PostMapping("/moderate")
     public ModerationResponse moderate(@RequestBody ModerationRequest request) {
-        String content = request.getPostContent().toLowerCase(Locale.ROOT);
+        String content = request.getPostContent().toLowerCase();
         
         // Check for banned words
         for (String bannedWord : BANNED_WORDS) {
-            if (content.contains(bannedWord.toLowerCase())) {
+            if (content.contains(bannedWord)) {
                 return new ModerationResponse("FAILED");
             }
         }
-
-        // If moderation passes, forward to hashtag service
+        
+        // If no banned words found, forward to hashtag service
         try {
-            String hashtagServiceUrl = "http://localhost:30002/hashtag";
-            HashtagResponse hashtagResponse = restTemplate.postForObject(
-                    hashtagServiceUrl,
-                    new HashtagRequest(request.getPostContent()),
-                    HashtagResponse.class
+            RestTemplate restTemplate = new RestTemplate();
+            HashtagRequest hashtagRequest = new HashtagRequest(request.getPostContent());
+            HashtagResponse response = restTemplate.postForObject(
+                "http://localhost:30002/hashtag",
+                hashtagRequest,
+                HashtagResponse.class
             );
-            return new ModerationResponse(hashtagResponse.getHashtag());
+            return new ModerationResponse(response.getResult());
         } catch (Exception e) {
-            // If hashtag service fails, return a default response
             return new ModerationResponse("#bskypost");
         }
     }
@@ -102,19 +97,19 @@ class HashtagRequest {
 }
 
 class HashtagResponse {
-    private String hashtag;
+    private String result;
 
     public HashtagResponse() {}
 
-    public HashtagResponse(String hashtag) {
-        this.hashtag = hashtag;
+    public HashtagResponse(String result) {
+        this.result = result;
     }
 
-    public String getHashtag() {
-        return hashtag;
+    public String getResult() {
+        return result;
     }
 
-    public void setHashtag(String hashtag) {
-        this.hashtag = hashtag;
+    public void setResult(String result) {
+        this.result = result;
     }
 } 

@@ -1,6 +1,7 @@
-com/ecs160/main/MainApplication$1.class
 com/ecs160/main/MainApplication.class
 com/ecs160/main/model/Reply.class
 com/ecs160/main/model/Post.class
+com/ecs160/models/Post.class
 com/ecs160/main/ModerationRequest.class
+com/ecs160/utils/parser.class
 com/ecs160/main/ModerationResponse.class

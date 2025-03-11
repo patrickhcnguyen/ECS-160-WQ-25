@@ -16,4 +16,4 @@ cd ..
 # Compile and launch the main app
 cd HW3-main
 mvn clean install
-java -jar target/hw2-0.0.1-SNAPSHOT.jar
+java -jar target/main-application-0.0.1-SNAPSHOT.jar

@@ -1,9 +1,7 @@
 package com.ecs160.main;
 
-import com.ecs160.main.model.Post;
-import com.ecs160.main.model.Reply;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.ecs160.models.Post;
+import com.ecs160.utils.parser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,10 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.io.FileInputStream;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @SpringBootApplication
 public class MainApplication {
@@ -30,67 +26,49 @@ public class MainApplication {
     @Bean
     public CommandLineRunner commandLineRunner() {
         return args -> {
-            // Read and parse input.json
-            File jsonFile = new File("src/main/resources/input.json");
-            
-            // Parse the JSON file into a JsonNode
-            JsonNode rootNode = objectMapper.readTree(jsonFile);
-            
-            // Extract posts from the JSON structure
-            List<Post> posts = new ArrayList<>();
-            Iterator<JsonNode> elements = rootNode.elements();
-            while (elements.hasNext()) {
-                JsonNode postNode = elements.next();
-                if (postNode.has("text") && postNode.has("likes")) {
-                    Post post = new Post();
-                    post.setText(postNode.get("text").asText());
-                    post.setLikes(postNode.get("likes").asInt());
-                    
-                    // Parse replies if they exist
-                    if (postNode.has("replies") && postNode.get("replies").isArray()) {
-                        List<Reply> replies = new ArrayList<>();
-                        for (JsonNode replyNode : postNode.get("replies")) {
-                            if (replyNode.has("text")) {
-                                Reply reply = new Reply();
-                                reply.setText(replyNode.get("text").asText());
-                                replies.add(reply);
-                            }
+            try {
+                // Read input.json using your existing parser
+                File jsonFile = new File("src/main/resources/input.json");
+                FileInputStream inputStream = new FileInputStream(jsonFile);
+                List<Post> posts = parser.parse(inputStream);
+                
+                System.out.println("Successfully parsed " + posts.size() + " posts");
+
+                // Process each post and its replies
+                for (Post post : posts) {
+                    String postResult = processContent(post.getPostContent());
+                    System.out.println(postResult.equals("FAILED") ? 
+                        "[DELETED]" : 
+                        post.getPostContent() + " " + postResult);
+
+                    if (post.getReplies() != null) {
+                        for (Post reply : post.getReplies()) {
+                            String replyResult = processContent(reply.getPostContent());
+                            System.out.println("--> " + (replyResult.equals("FAILED") ? 
+                                "[DELETED]" : 
+                                reply.getPostContent() + " " + replyResult));
                         }
-                        post.setReplies(replies);
                     }
-                    
-                    posts.add(post);
+                    System.out.println(); // Empty line between posts
                 }
-            }
-
-            // Get top 10 most-liked posts
-            List<Post> top10Posts = posts.stream()
-                    .sorted((p1, p2) -> Integer.compare(p2.getLikes(), p1.getLikes()))
-                    .limit(10)
-                    .collect(Collectors.toList());
-
-            // Process each post and its replies
-            for (Post post : top10Posts) {
-                String postResult = processContent(post.getText());
-                System.out.println(postResult.equals("FAILED") ? "[DELETED]" : post.getText() + " " + postResult);
-
-                if (post.getReplies() != null) {
-                    for (Reply reply : post.getReplies()) {
-                        String replyResult = processContent(reply.getText());
-                        System.out.println("--> " + (replyResult.equals("FAILED") ? "[DELETED]" : reply.getText() + " " + replyResult));
-                    }
-                }
-                System.out.println(); // Empty line between posts
+            } catch (Exception e) {
+                System.err.println("Error processing posts: " + e.getMessage());
+                e.printStackTrace();
             }
         };
     }
 
     private String processContent(String content) {
         try {
+            System.out.println("Processing content: " + content);
             ModerationRequest request = new ModerationRequest(content);
             ModerationResponse response = restTemplate.postForObject(MODERATION_URL, request, ModerationResponse.class);
-            return response != null ? response.getResult() : "#bskypost";
+            String result = response != null ? response.getResult() : "#bskypost";
+            System.out.println("Result: " + result);
+            return result;
         } catch (Exception e) {
+            System.err.println("Error processing content: " + e.getMessage());
+            e.printStackTrace();
             return "#bskypost";
         }
     }
