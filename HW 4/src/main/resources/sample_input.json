@@ -1,0 +1,156 @@
+{
+    "feed": [
+        {
+            "thread": {
+                "$type": "app.bsky.feed.defs#threadViewPost",
+                "post": {
+                    "uri": "post1",
+                    "cid": "cid1",
+                    "author": {
+                        "did": "user1",
+                        "handle": "user1.bsky.social",
+                        "displayName": "User One",
+                        "createdAt": "2024-03-21T10:00:00Z"
+                    },
+                    "record": {
+                        "$type": "app.bsky.feed.post",
+                        "text": "Just learned about machine learning and AI. The future is exciting!",
+                        "createdAt": "2024-03-21T10:00:00Z"
+                    },
+                    "replyCount": 2,
+                    "likeCount": 150,
+                    "indexedAt": "2024-03-21T10:00:00Z"
+                },
+                "replies": [
+                    {
+                        "post": {
+                            "uri": "reply1",
+                            "record": {
+                                "text": "AI is indeed transforming everything!",
+                                "createdAt": "2024-03-21T10:05:00Z"
+                            },
+                            "likeCount": 30
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "thread": {
+                "post": {
+                    "uri": "post2",
+                    "record": {
+                        "text": "Just finished coding my first web application using React!",
+                        "createdAt": "2024-03-21T11:00:00Z"
+                    },
+                    "likeCount": 200
+                },
+                "replies": []
+            }
+        },
+        {
+            "thread": {
+                "post": {
+                    "uri": "post3",
+                    "record": {
+                        "text": "Coffee and coding: the perfect combination for a productive morning.",
+                        "createdAt": "2024-03-21T12:00:00Z"
+                    },
+                    "likeCount": 175
+                },
+                "replies": []
+            }
+        },
+        {
+            "thread": {
+                "post": {
+                    "uri": "post4",
+                    "record": {
+                        "text": "Exploring new Python libraries for data analysis today.",
+                        "createdAt": "2024-03-21T13:00:00Z"
+                    },
+                    "likeCount": 120
+                },
+                "replies": []
+            }
+        },
+        {
+            "thread": {
+                "post": {
+                    "uri": "post5",
+                    "record": {
+                        "text": "Just published my first npm package! Open source is amazing.",
+                        "createdAt": "2024-03-21T14:00:00Z"
+                    },
+                    "likeCount": 300
+                },
+                "replies": []
+            }
+        },
+        {
+            "thread": {
+                "post": {
+                    "uri": "post6",
+                    "record": {
+                        "text": "Docker containers make deployment so much easier!",
+                        "createdAt": "2024-03-21T15:00:00Z"
+                    },
+                    "likeCount": 250
+                },
+                "replies": []
+            }
+        },
+        {
+            "thread": {
+                "post": {
+                    "uri": "post7",
+                    "record": {
+                        "text": "Learning about cybersecurity best practices. Always keep your systems updated!",
+                        "createdAt": "2024-03-21T16:00:00Z"
+                    },
+                    "likeCount": 180
+                },
+                "replies": []
+            }
+        },
+        {
+            "thread": {
+                "post": {
+                    "uri": "post8",
+                    "record": {
+                        "text": "The importance of clean code cannot be overstated.",
+                        "createdAt": "2024-03-21T17:00:00Z"
+                    },
+                    "likeCount": 220
+                },
+                "replies": []
+            }
+        },
+        {
+            "thread": {
+                "post": {
+                    "uri": "post9",
+                    "record": {
+                        "text": "Cloud computing has revolutionized how we build applications.",
+                        "createdAt": "2024-03-21T18:00:00Z"
+                    },
+                    "likeCount": 280
+                },
+                "replies": []
+            }
+        },
+        {
+            "thread": {
+                "post": {
+                    "uri": "post10",
+                    "record": {
+                        "text": "TypeScript makes JavaScript development so much better!",
+                        "createdAt": "2024-03-21T19:00:00Z"
+                    },
+                    "likeCount": 190
+                },
+                "replies": []
+            }
+        }
+    ]
+} 
