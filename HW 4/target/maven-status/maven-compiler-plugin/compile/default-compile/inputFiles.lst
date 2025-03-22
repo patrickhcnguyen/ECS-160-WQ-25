@@ -1,0 +1,17 @@
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/SocialMediaAnalyzerDriver.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/analysis/BaseAnalyzer.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/analysis/ComprehensiveAnalyzer.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/analysis/analyzer.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/analysis/visitors/HashtagVisitor.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/analysis/visitors/PostCountVisitor.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/analysis/visitors/StatisticsVisitor.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/config/AnalyzerConfig.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/database/redis.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/decorators/HashtagDecorator.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/models/Author.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/models/Post.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/models/Record.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/models/SocialMediaComponent.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/services/OllamaService.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/utils/LocalDateTimeAdapter.java
+/Users/emanuelhernandez/Desktop/ECS-160-WQ-25/HW 4/src/main/java/com/ecs160/hw1/utils/parser.java

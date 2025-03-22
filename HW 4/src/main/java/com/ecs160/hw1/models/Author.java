@@ -1,5 +1,7 @@
 package com.ecs160.hw1.models;
 
+import java.util.Objects;
+
 public class Author {
     // vals
 
@@ -22,8 +24,28 @@ public class Author {
         return name; 
     }
 
+    public Author() {
+        // No-arg constructor for tests
+    }
+
     public Author(String name) {
         this.name = name;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return Objects.equals(did, author.did) &&
+               Objects.equals(handle, author.handle) &&
+               Objects.equals(displayName, author.displayName) &&
+               Objects.equals(name, author.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(did, handle, displayName, name);
     }
 
     //HIIII

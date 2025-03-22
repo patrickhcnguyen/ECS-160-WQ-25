@@ -1,0 +1,7 @@
+com/ecs160/hw1/services/OllamaServiceTest.class
+com/ecs160/hw1/models/AuthorTest.class
+com/ecs160/hw1/database/RedisTest.class
+com/ecs160/hw1/analysis/AnalyzerTest.class
+com/ecs160/hw1/utils/ParserTest.class
+com/ecs160/hw1/utils/LocalDateTimeAdapterTest.class
+com/ecs160/hw1/models/PostTest.class

@@ -3,6 +3,7 @@ package com.ecs160.hw1.utils;
 import com.ecs160.hw1.models.Post;
 import com.google.gson.*;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -47,6 +48,10 @@ public class parser {
                     }
                 }
             }
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + filePath);
+            // Return empty list for non-existent files
+            return new ArrayList<>();
         } catch (IOException e) {
             e.printStackTrace();
         }

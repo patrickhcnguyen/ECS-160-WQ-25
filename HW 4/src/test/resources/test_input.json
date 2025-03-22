@@ -1,0 +1,44 @@
+{
+  "feed": [
+    {
+      "thread": {
+        "post": {
+          "uri": "at://did:plc:test1/app.bsky.feed.post/test-1",
+          "cid": "test-cid-1",
+          "author": {
+            "did": "did:plc:test1",
+            "handle": "test1.bsky.social"
+          },
+          "record": {
+            "text": "This is a test post",
+            "createdAt": "2023-06-01T12:00:00Z"
+          },
+          "replyCount": 1,
+          "repostCount": 2,
+          "likeCount": 3,
+          "indexedAt": "2023-06-01T12:01:00Z"
+        },
+        "replies": [
+          {
+            "post": {
+              "uri": "at://did:plc:test2/app.bsky.feed.post/test-2",
+              "cid": "test-cid-2",
+              "author": {
+                "did": "did:plc:test2",
+                "handle": "test2.bsky.social"
+              },
+              "record": {
+                "text": "This is a reply",
+                "createdAt": "2023-06-01T12:05:00Z"
+              },
+              "replyCount": 0,
+              "repostCount": 0,
+              "likeCount": 1,
+              "indexedAt": "2023-06-01T12:06:00Z"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
